@@ -6,7 +6,7 @@
     <content url="file://$MODULE_DIR$/../../../../../Topics/Regexes in programs/Theory/src">
       <sourceFolder url="file://$MODULE_DIR$/../../../../../Topics/Regexes in programs/Theory/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="jbr-21" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

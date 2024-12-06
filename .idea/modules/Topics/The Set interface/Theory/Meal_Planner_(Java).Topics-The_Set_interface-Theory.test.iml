@@ -5,7 +5,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../../../Topics/The Set interface/Theory/src/test" />
     <content url="file://$MODULE_DIR$/../../../../../Topics/The Set interface/Theory/test" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="jbr-21" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Meal_Planner_(Java).Topics-The_Set_interface-Theory.main" />
     <orderEntry type="module" module-name="Meal_Planner_(Java).util.main" />

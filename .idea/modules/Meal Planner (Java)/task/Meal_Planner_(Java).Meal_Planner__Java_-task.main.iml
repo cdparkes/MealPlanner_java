@@ -6,7 +6,7 @@
     <content url="file://$MODULE_DIR$/../../../../Meal Planner (Java)/task/src">
       <sourceFolder url="file://$MODULE_DIR$/../../../../Meal Planner (Java)/task/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="jbr-21" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.postgresql:postgresql:42.2.27" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.checkerframework:checker-qual:3.5.0" level="project" />
