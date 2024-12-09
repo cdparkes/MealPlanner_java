@@ -1,8 +1,7 @@
 package mealplanner.dbHandler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.swing.text.html.HTMLDocument;
+import java.sql.*;
 
 public class ConnectionManager {
     private static String url = "jdbc:postgresql://localhost:5432/meals_db";
@@ -48,5 +47,7 @@ public class ConnectionManager {
             }
         }
     }
-
 }
+
+
+
