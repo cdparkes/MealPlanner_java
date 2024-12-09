@@ -9,10 +9,10 @@ public class TableManager {
 
     private final Connection con = ConnectionManager.getConnection();
 
-    public void createTable(String tableName,
-                            String col1Name, String col1Type,
-                            String col2Name, String col2Type,
-                            String col3Name, String col3Type) {
+    public void createTableIfNotExists(String tableName,
+                                       String col1Name, String col1Type,
+                                       String col2Name, String col2Type,
+                                       String col3Name, String col3Type) {
 
         if (con == null) {
             System.out.println("Failed to create table because the database connection could not be established");
@@ -37,6 +37,7 @@ public class TableManager {
         }
     }
 
+    // used for debugging db connection and table creation
     public boolean isTableExists(String tableName) {
         String checkTableExistsQuery = "SELECT EXISTS (" +
                 "SELECT * FROM information_schema.tables " +

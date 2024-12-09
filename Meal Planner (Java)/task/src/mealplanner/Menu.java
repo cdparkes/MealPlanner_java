@@ -1,5 +1,9 @@
 package mealplanner;
 
+import mealplanner.dbHandler.ConnectionManager;
+import mealplanner.dbHandler.DataManager;
+
+import java.sql.Connection;
 import java.util.*;
 
 public class Menu {
@@ -77,9 +81,18 @@ public class Menu {
             invalidInput = true;
         }
 
-        Meal meal = new Meal(mealCategory, mealName, ingredients);
-        mealList.add(meal);
-        System.out.println("The meal has been added!");
+        DataManager dataManager = new DataManager();
+        Connection connection = ConnectionManager.getConnection();
+
+        if (connection != null) {
+            dataManager.insertNewMealRecord("meals",
+                    "category", mealCategory,
+                    "meal", mealName,
+                    "meal_id", connection);
+        } else {
+            System.out.println("Failed to connect to the database.");
+        }
+
     }
 
     private static void showMeals() {

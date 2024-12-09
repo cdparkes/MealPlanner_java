@@ -21,6 +21,12 @@ files:
   - name: src/mealplanner/dbHandler/TableManager.java
     visible: true
     learner_created: true
+  - name: src/mealplanner/dbHandler/DataManager.java
+    visible: true
+    learner_created: true
+  - name: src/mealplanner/dbHandler/IDGenerator.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/25573#comment
 status: Unchecked
 record: -1
