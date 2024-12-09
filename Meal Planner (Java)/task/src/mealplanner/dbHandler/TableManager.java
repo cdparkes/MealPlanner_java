@@ -9,18 +9,6 @@ public class TableManager {
 
     private final Connection connection = ConnectionManager.getConnection();
 
-//    public void createTableIfNotExists(String tableName,
-//                                       String col1Name, String col1Type,
-//                                       String col2Name, String col2Type,
-//                                       String col3Name, String col3Type) {
-//
-//        if (connection == null) {
-//            System.out.println("Failed to create table because the database connection could not be established");
-//            return;
-//        }
-//
-//        String createString = "CREATE TABLE IF NOT EXISTS %s (%s %s,%s %s,%s %s)".formatted(tableName, col1Name, col1Type, col2Name, col2Type, col3Name, col3Type);
-
     public void createTable() {
         // SQL statement to create meals table
         String createMealsTable = "CREATE TABLE IF NOT EXISTS meals(" +
