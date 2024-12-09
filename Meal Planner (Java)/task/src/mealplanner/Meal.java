@@ -8,11 +8,19 @@ public class Meal {
     private String category;
     private String name;
     private List<String> ingredients;
+    private int mealId;
 
     public Meal(String category, String name, List<String> ingredients) {
         this.category = category;
         this.name = name;
         this.ingredients = new ArrayList<>(ingredients);
+    }
+
+    public Meal(String category, String name, int mealId) {
+        this.category = category;
+        this.name = name;
+        this.mealId = mealId;
+        this.ingredients = new ArrayList<>();
     }
 
     public String getMealCategory() {
@@ -63,5 +71,9 @@ public class Meal {
         for (String element : ingredients) {
             System.out.println(element);
         }
+    }
+
+    public void addIngredient(String ingredient) {
+        this.ingredients.add(ingredient);
     }
 }

@@ -1,21 +1,27 @@
 package mealplanner;
 
-import mealplanner.dbHandler.ConnectionManager;
 import mealplanner.dbHandler.DataManager;
 
 import java.sql.Connection;
 import java.util.*;
 
 public class Menu {
-    private static final Scanner scanner = new Scanner(System.in);
-    private static Set<Meal> mealList = new LinkedHashSet<>();
+    private final Scanner scanner = new Scanner(System.in);
+    private final Connection connection;
+    private final DataManager dataManager;
 
-    public static boolean inputMenu() {
+
+    public Menu(Connection connection) {
+        this.connection = connection;
+        this.dataManager = new DataManager(connection);
+    }
+
+    public boolean inputMenu() {
         System.out.println("What would you like to do (add, show, exit)?");
         String input = scanner.nextLine();
         switch (input) {
             case "add" -> addMeal();
-            case "show" -> showMeals();
+            case "show" -> showMeals(connection);
             case "exit" -> {
                 System.out.println("Bye!");
                 return false;
@@ -24,10 +30,11 @@ public class Menu {
         return true;
     }
 
-    private static void addMeal() {
+    private void addMeal() {
         String regexString = "^[A-Za-z ]+$";
         String mealCategory = "", mealName = "", input = "";
         boolean invalidInput = true;
+
         List<String> ingredients = new ArrayList();
 
         System.out.println("Which meal do you want to add (breakfast, lunch, dinner)?");
@@ -81,21 +88,28 @@ public class Menu {
             invalidInput = true;
         }
 
-        DataManager dataManager = new DataManager();
-        Connection connection = ConnectionManager.getConnection();
-
         if (connection != null) {
-            dataManager.insertNewMealRecord("meals",
+            int meal_id = dataManager.insertNewRecord("meals",
                     "category", mealCategory,
                     "meal", mealName,
                     "meal_id", connection);
+
+            for (String ingredient : ingredients) {
+                dataManager.insertNewRecord("ingredients",
+                        "ingredient", ingredient,
+                        "ingredient_id",
+                        "meal_id", meal_id,
+                        connection);
+            }
         } else {
             System.out.println("Failed to connect to the database.");
         }
 
     }
 
-    private static void showMeals() {
+    private void showMeals(Connection connection) {
+        Set<Meal> mealList = dataManager.fetchAllMealsAndIngredients();
+
         if (mealList.isEmpty()) {
             System.out.println("No meals saved. Add a meal first.");
         } else {

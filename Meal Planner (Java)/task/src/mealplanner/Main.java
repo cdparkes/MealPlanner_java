@@ -4,18 +4,17 @@ import mealplanner.dbHandler.ConnectionManager;
 import mealplanner.dbHandler.DataManager;
 import mealplanner.dbHandler.TableManager;
 
-import javax.xml.crypto.Data;
+import java.sql.Connection;
 
 public class Main {
 
-    public ConnectionManager dbConnection = new ConnectionManager();
-    public TableManager tbManager = new TableManager();
-    public DataManager dataManager = new DataManager();
+    public final ConnectionManager dbConnection = new ConnectionManager();
+    public final TableManager tbManager = new TableManager();
 
     public static void main(String[] args) {
         Main app = new Main();
 
-        ConnectionManager.getConnection();
+        Connection connection = ConnectionManager.getConnection();
 
         app.tbManager.createTableIfNotExists("meals",
                 "category", "VARCHAR(50)",
@@ -29,11 +28,11 @@ public class Main {
 
         if (app.dbConnection.isConnectionEstablished()) {
             System.out.println("Connection successfully established.");
+            Menu menu = new Menu(connection);
+            while (menu.inputMenu()) {
+            }
         } else {
             System.out.println("Failed to establish connection.");
-        }
-
-        while (Menu.inputMenu()) {
         }
 
         ConnectionManager.closeConnection();
