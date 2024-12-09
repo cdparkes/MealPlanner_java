@@ -3,6 +3,7 @@ package mealplanner;
 import mealplanner.dbHandler.DataManager;
 
 import java.sql.Connection;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Menu {
@@ -89,18 +90,17 @@ public class Menu {
         }
 
         if (connection != null) {
-            int meal_id = dataManager.insertNewRecord("meals",
-                    "category", mealCategory,
-                    "meal", mealName,
-                    "meal_id", connection);
+            int mealId = dataManager.insertNewRecord("meals",
+                    "category", mealCategory, "meal", mealName,
+                    connection);
 
             for (String ingredient : ingredients) {
                 dataManager.insertNewRecord("ingredients",
                         "ingredient", ingredient,
-                        "ingredient_id",
-                        "meal_id", meal_id,
+                        "meal_id", mealId,
                         connection);
             }
+            System.out.println("The meal has been added!");
         } else {
             System.out.println("Failed to connect to the database.");
         }

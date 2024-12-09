@@ -16,18 +16,9 @@ public class Main {
 
         Connection connection = ConnectionManager.getConnection();
 
-        app.tbManager.createTableIfNotExists("meals",
-                "category", "VARCHAR(50)",
-                "meal", "VARCHAR(50)",
-                "meal_id", "INTEGER");
-
-        app.tbManager.createTableIfNotExists("ingredients",
-                "ingredient", "VARCHAR(50)",
-                "ingredient_id", "INTEGER",
-                "meal_id", "INTEGER");
-
+        app.tbManager.createTable();
         if (app.dbConnection.isConnectionEstablished()) {
-            System.out.println("Connection successfully established.");
+//            System.out.println("Connection successfully established.");
             Menu menu = new Menu(connection);
             while (menu.inputMenu()) {
             }

@@ -2,7 +2,6 @@ package mealplanner.dbHandler;
 
 import mealplanner.Meal;
 
-import java.security.PrivilegedAction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,18 +54,17 @@ public class DataManager {
     }
 
     public int insertNewRecord(String tableName,
-                               String col1Name, String col1Value,
                                String col2Name, String col2Value,
-                               String col3Name, Connection connection) {
+                               String col3Name, String col3Value,
+                               Connection connection) {
         IDGenerator idGen = new IDGenerator(connection);
-        int newId = idGen.getNextId(tableName, col3Name);
+        int newId = idGen.getNextId(tableName, "meal_id");
 
-        String insertQuery = "INSERT INTO %s (%s, %s, %s)VALUES (?, ?, ?)".formatted(tableName, col1Name, col2Name, col3Name);
+        String insertQuery = "INSERT INTO %s (%s, %s)VALUES (?, ?)".formatted(tableName, col2Name, col3Name);
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            preparedStatement.setString(1, col1Value);
-            preparedStatement.setString(2, col2Value);
-            preparedStatement.setInt(3, newId);
+            preparedStatement.setString(1, col2Value);
+            preparedStatement.setString(2, col3Value);
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
@@ -76,19 +74,14 @@ public class DataManager {
     }
 
     public void insertNewRecord(String tableName,
-                                String col1Name, String col1Value,
-                                String col2Name,
+                                String col2Name, String col2Value,
                                 String col3Name, int col3Value,
                                 Connection connection) {
-        IDGenerator idGen = new IDGenerator(connection);
-        int newId = idGen.getNextId(tableName, col2Name);
-
-        String insertQuery = "INSERT INTO %s (%s, %s, %s)VALUES (?, ?, ?)".formatted(tableName, col1Name, col2Name, col3Name);
+        String insertQuery = "INSERT INTO %s (%s, %s)VALUES (?, ?)".formatted(tableName, col2Name, col3Name);
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            preparedStatement.setString(1, col1Value);
-            preparedStatement.setInt(2, newId);
-            preparedStatement.setInt(3, col3Value);
+            preparedStatement.setString(1, col2Value);
+            preparedStatement.setInt(2, col3Value);
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
