@@ -1,6 +1,8 @@
 package mealplanner.dbHandler;
 
 import mealplanner.Meal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +13,7 @@ import java.util.Set;
 
 public class DataManager {
 
+    private static final Logger logger = LoggerFactory.getLogger(DataManager.class);
     private final Connection connection;
 
     public DataManager(Connection connection) {
@@ -31,7 +34,7 @@ public class DataManager {
                 String category = mealResultSet.getString("category");
                 String mealName = mealResultSet.getString("meal");
 
-                Meal meal = new Meal(category, mealName, mealId);
+                Meal meal = new Meal(category, mealName);
 
                 try (PreparedStatement ingredientStatement = connection.prepareStatement(ingredientQuery)) {
                     ingredientStatement.setInt(1, mealId);
@@ -47,7 +50,7 @@ public class DataManager {
                 meals.add(meal);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("SQL Exception while fetching meals and ingredients: {}", e.getMessage(), e);
         }
 
         return meals;
@@ -68,7 +71,7 @@ public class DataManager {
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("SQL Exception while inserting new record into the database: {}", e.getMessage(), e);
         }
         return newId;
     }
@@ -85,7 +88,7 @@ public class DataManager {
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("SQL Exception while inserting new record into the database: {}", e.getMessage(), e);
         }
     }
 }

@@ -3,7 +3,6 @@ package mealplanner;
 import mealplanner.dbHandler.DataManager;
 
 import java.sql.Connection;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Menu {

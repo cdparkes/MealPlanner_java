@@ -1,21 +1,22 @@
 package mealplanner.dbHandler;
 
-import javax.swing.text.html.HTMLDocument;
 import java.sql.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConnectionManager {
-    private static String url = "jdbc:postgresql://localhost:5432/meals_db";
-    private static String driverName = "org.postgresql.Driver";
-    private static String username = "postgres";
-    private static String password = "1111";
+    private static final String URL = "jdbc:postgresql://localhost:5432/meals_db";
+    private static final String DRIVER_NAME = "org.postgresql.Driver";
+    private static final String USERNAME = "postgres";
+    private static final String PASSWORD = "1111";
     private static Connection con;
-    private static String urlstring;
+    private static final Logger logger = LoggerFactory.getLogger(ConnectionManager.class);
 
     public static Connection getConnection() {
         if (con == null || isClosed(con)) {
             try {
-                Class.forName(driverName);
-                con = DriverManager.getConnection(url, username, password);
+                Class.forName(DRIVER_NAME);
+                con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             } catch (ClassNotFoundException e) {
                 System.out.println("Driver not found.");
             } catch (SQLException e) {
@@ -29,7 +30,7 @@ public class ConnectionManager {
         try {
             return con.isClosed();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Failed to determine if connection is closed", e);
             return true;
         }
     }
@@ -43,7 +44,7 @@ public class ConnectionManager {
             try {
                 con.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error("Could not close connection to database", e);
             }
         }
     }

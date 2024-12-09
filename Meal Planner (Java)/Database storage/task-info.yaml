@@ -27,6 +27,9 @@ files:
   - name: src/mealplanner/dbHandler/IDGenerator.java
     visible: true
     learner_created: true
+  - name: src/mealplanner/resources/logback.xml
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/25573#comment
 status: Solved
 feedback:

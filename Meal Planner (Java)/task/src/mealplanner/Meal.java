@@ -5,46 +5,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class Meal {
-    private String category;
-    private String name;
-    private List<String> ingredients;
-    private int mealId;
+    private final String category;
+    private final String name;
+    private final List<String> ingredients;
 
-    public Meal(String category, String name, List<String> ingredients) {
+    public Meal(String category, String name) {
         this.category = category;
         this.name = name;
-        this.ingredients = new ArrayList<>(ingredients);
-    }
-
-    public Meal(String category, String name, int mealId) {
-        this.category = category;
-        this.name = name;
-        this.mealId = mealId;
         this.ingredients = new ArrayList<>();
-    }
-
-    public String getMealCategory() {
-        return category;
-    }
-
-    public void setMealCategory(String category) {
-        this.category = category;
-    }
-
-    public String getMealName() {
-        return name;
-    }
-
-    public void setMealName(String name) {
-        this.name = name;
-    }
-
-    public List<String> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<String> ingredients) {
-        this.ingredients = ingredients;
     }
 
     @Override

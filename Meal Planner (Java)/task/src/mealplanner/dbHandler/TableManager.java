@@ -1,13 +1,16 @@
 package mealplanner.dbHandler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TableManager {
 
-    private final Connection connection = ConnectionManager.getConnection();
+    private static final Logger logger = LoggerFactory.getLogger(TableManager.class);
+    private final Connection dbConnection = ConnectionManager.getConnection();
 
     public void createTable() {
         // SQL statement to create meals table
@@ -25,40 +28,20 @@ public class TableManager {
                 "FOREIGN KEY (meal_id) REFERENCES meals(meal_id) ON DELETE CASCADE" +
                 ");";
 
-        try (PreparedStatement createMealsTableStatement = connection.prepareStatement(createMealsTable);
-        PreparedStatement createIngredientsTableStatement = connection.prepareStatement(createIngredientsTable)) {
-            connection.setAutoCommit(false);
+        try (PreparedStatement createMealsTableStatement = dbConnection.prepareStatement(createMealsTable);
+             PreparedStatement createIngredientsTableStatement = dbConnection.prepareStatement(createIngredientsTable)) {
+            dbConnection.setAutoCommit(false);
             createMealsTableStatement.executeUpdate();
             createIngredientsTableStatement.executeUpdate();
-            connection.commit();
+            dbConnection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error while creating tables: {}, SQLState: {}", e.getMessage(), e.getSQLState());
             try {
-                if (connection != null) {
-                    connection.rollback();
-                }
+                dbConnection.rollback();
+                logger.info("Transaction rolled back successfully.");
             } catch (SQLException rollbackEx) {
-                rollbackEx.printStackTrace();
+                logger.error("Error during rollback: {}", rollbackEx.getMessage(), rollbackEx);
             }
         }
-    }
-
-    // used for debugging db connection and table creation
-    public boolean isTableExists(String tableName) {
-        String checkTableExistsQuery = "SELECT EXISTS (" +
-                "SELECT * FROM information_schema.tables " +
-                "WHERE table_schema = 'public' " +
-                "AND table_name = ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(checkTableExistsQuery)) {
-            preparedStatement.setString(1, tableName);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getBoolean(1);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 }

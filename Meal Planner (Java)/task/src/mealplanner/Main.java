@@ -1,7 +1,6 @@
 package mealplanner;
 
 import mealplanner.dbHandler.ConnectionManager;
-import mealplanner.dbHandler.DataManager;
 import mealplanner.dbHandler.TableManager;
 
 import java.sql.Connection;
@@ -20,7 +19,8 @@ public class Main {
         if (app.dbConnection.isConnectionEstablished()) {
 //            System.out.println("Connection successfully established.");
             Menu menu = new Menu(connection);
-            while (menu.inputMenu()) {
+            while (true) {
+                if (!menu.inputMenu()) break;
             }
         } else {
             System.out.println("Failed to establish connection.");
