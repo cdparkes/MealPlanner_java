@@ -9,6 +9,33 @@ files:
   - name: test/MealPlannerTests.java
     visible: false
     learner_created: false
+  - name: src/mealplanner/dbHandler/ConnectionManager.java
+    visible: true
+    learner_created: true
+  - name: src/mealplanner/Meal.java
+    visible: true
+    learner_created: true
+  - name: src/mealplanner/dbHandler/IDGenerator.java
+    visible: true
+    learner_created: true
+  - name: src/mealplanner/dbHandler/DataReader.java
+    visible: true
+    learner_created: true
+  - name: src/mealplanner/Menu.java
+    visible: true
+    learner_created: true
+  - name: src/mealplanner/resources/logback.xml
+    visible: true
+    learner_created: true
+  - name: src/mealplanner/dbHandler/TableManager.java
+    visible: true
+    learner_created: true
+  - name: src/mealplanner/interfaces/DataManager.java
+    visible: true
+    learner_created: true
+  - name: src/mealplanner/dbHandler/DataWriter.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/25574#comment
 status: Unchecked
 record: -1

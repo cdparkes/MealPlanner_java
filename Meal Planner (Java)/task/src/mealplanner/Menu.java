@@ -1,6 +1,7 @@
 package mealplanner;
 
-import mealplanner.dbHandler.DataManager;
+import mealplanner.dbHandler.DataReader;
+import mealplanner.dbHandler.DataWriter;
 
 import java.sql.Connection;
 import java.util.*;
@@ -15,11 +16,13 @@ public class Menu {
 
     private final Scanner scanner = new Scanner(System.in);
     private final Connection connection;
-    private final DataManager dataManager;
+    private final DataReader dataReader;
+    private final DataWriter dataWriter;
 
     public Menu(Connection connection) {
         this.connection = connection;
-        this.dataManager = new DataManager(connection);
+        this.dataReader = new DataReader(connection);
+        this.dataWriter = new DataWriter(connection);
     }
 
     public boolean inputMenu() {
@@ -104,15 +107,13 @@ public class Menu {
 
     private void saveMeal(String mealCategory, String mealName, List<String> ingredients) {
         if (connection != null) {
-            int mealId = dataManager.insertNewRecord("meals",
+            int mealId = dataWriter.insertNewRecord("meals",
                     "category", mealCategory,
-                    "meal", mealName,
-                    connection);
+                    "meal", mealName);
             for (String ingredient : ingredients) {
-                dataManager.insertNewRecord("ingredients",
+                dataWriter.insertNewRecord("ingredients",
                         "ingredient", ingredient,
-                        "meal_id", mealId,
-                        connection);
+                        "meal_id", mealId);
             }
             System.out.println("The meal has been added!");
         } else {
@@ -121,7 +122,7 @@ public class Menu {
     }
 
     private void showMeals() {
-        Set<Meal> mealList = dataManager.fetchAllMealsAndIngredients();
+        Set<Meal> mealList = dataReader.fetchAllMealsAndIngredients();
         if (mealList.isEmpty()) {
             System.out.println("No meals saved. Add a meal first.");
         } else {

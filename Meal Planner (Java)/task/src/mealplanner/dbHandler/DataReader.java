@@ -1,6 +1,7 @@
 package mealplanner.dbHandler;
 
 import mealplanner.Meal;
+import mealplanner.interfaces.DataManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,15 +12,16 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class DataManager {
+public class DataReader implements DataManager {
 
-    private static final Logger logger = LoggerFactory.getLogger(DataManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(DataReader.class);
     private final Connection connection;
 
-    public DataManager(Connection connection) {
+    public DataReader(Connection connection) {
         this.connection = connection;
     }
 
+    @Override
     public Set<Meal> fetchAllMealsAndIngredients() {
         String mealQuery = "SELECT * FROM meals";
         String ingredientQuery = "SELECT * FROM ingredients WHERE meal_id=?";
@@ -27,7 +29,7 @@ public class DataManager {
         Set<Meal> meals = new LinkedHashSet<>();
 
         try (PreparedStatement mealStatement = connection.prepareStatement(mealQuery);
-            ResultSet mealResultSet = mealStatement.executeQuery()) {
+             ResultSet mealResultSet = mealStatement.executeQuery()) {
 
             while (mealResultSet.next()) {
                 int mealId = mealResultSet.getInt("meal_id");
@@ -56,39 +58,17 @@ public class DataManager {
         return meals;
     }
 
+    @Override
     public int insertNewRecord(String tableName,
                                String col2Name, String col2Value,
-                               String col3Name, String col3Value,
-                               Connection connection) {
-        IDGenerator idGen = new IDGenerator(connection);
-        int newId = idGen.getNextId(tableName, "meal_id");
-
-        String insertQuery = "INSERT INTO %s (%s, %s)VALUES (?, ?)".formatted(tableName, col2Name, col3Name);
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            preparedStatement.setString(1, col2Value);
-            preparedStatement.setString(2, col3Value);
-            preparedStatement.executeUpdate();
-            connection.commit();
-        } catch (SQLException e) {
-            logger.error("SQL Exception while inserting new record into the database: {}", e.getMessage(), e);
-        }
-        return newId;
+                               String col3Name, String col3Value) {
+        throw new UnsupportedOperationException("This class does not support inserting new records");
     }
 
+    @Override
     public void insertNewRecord(String tableName,
                                 String col2Name, String col2Value,
-                                String col3Name, int col3Value,
-                                Connection connection) {
-        String insertQuery = "INSERT INTO %s (%s, %s)VALUES (?, ?)".formatted(tableName, col2Name, col3Name);
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            preparedStatement.setString(1, col2Value);
-            preparedStatement.setInt(2, col3Value);
-            preparedStatement.executeUpdate();
-            connection.commit();
-        } catch (SQLException e) {
-            logger.error("SQL Exception while inserting new record into the database: {}", e.getMessage(), e);
-        }
+                                String col3Name, int col3Value) {
+        throw new UnsupportedOperationException("This class does not support inserting new records");
     }
 }
