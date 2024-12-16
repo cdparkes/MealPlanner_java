@@ -20,7 +20,6 @@ public class Main {
 
     app.tbManager.createTable();
     if (app.dbConnection.isConnectionEstablished()) {
-//            logger.info("Connection successfully established.");
       Menu menu = new Menu(connection);
       while (true) {
         if (!menu.inputMenu()) break;

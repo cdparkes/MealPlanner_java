@@ -2,8 +2,14 @@ package mealplanner;
 
 import mealplanner.dbHandler.DataReader;
 import mealplanner.dbHandler.DataWriter;
+import mealplanner.enums.Categories;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.util.*;
 
 public class Menu {
@@ -15,9 +21,12 @@ public class Menu {
     private static final String NAME_PROMPT = "Input the meal's name:";
 
     private final Scanner scanner = new Scanner(System.in);
+    public static final Logger logger = LoggerFactory.getLogger(Menu.class);
     private final Connection connection;
     private final DataReader dataReader;
     private final DataWriter dataWriter;
+
+    private int dayCounter = 1;
 
     public Menu(Connection connection) {
         this.connection = connection;
@@ -32,14 +41,14 @@ public class Menu {
             case "add" -> handleAddition();
             case "show" -> handleShow();
             case "plan" -> handlePlan();
-            case "show plan" -> handleShowPlan();
+            case "list plan" -> handleListPlan();
             case "exit" -> exitMenu();
             default -> true;
         };
     }
 
-    private boolean handleShowPlan() {
-        showPlan();
+    private boolean handleListPlan() {
+        listPlan();
         return true;
     }
 
@@ -64,9 +73,57 @@ public class Menu {
     }
 
     private void plan() {
+        clearPlanTable();
+        for (int day = 1; day <= 7; day++) {
+            DayOfWeek dayOfWeek = DayOfWeek.of(day);
+            System.out.println(dayOfWeek);
+
+            for (Categories category : Categories.values()) {
+                List<String> meals = dataReader.getMeals(category.name());
+                if (meals.isEmpty()) {
+                    System.out.println("No meals found for " + category.name().toLowerCase() + ".");
+                    continue;
+                }
+
+                meals.sort(String::compareToIgnoreCase);
+                meals.forEach(System.out::println);
+
+                String chosenMeal = null;
+                while (true) {
+                    System.out.printf("Choose the %s for %s from the list above:%n", category.name().toLowerCase(), dayOfWeek);
+                    String input = scanner.nextLine();
+
+                    if (meals.contains(input)) {
+                        chosenMeal = input;
+                        break;
+                    } else {
+                        System.out.println("This meal doesn't exist. Choose a meal from the list above.");
+                    }
+                }
+
+                int mealId = dataReader.getMealId(chosenMeal);
+
+                dataWriter.insertNewRecord("plan", "day_of_week", String.valueOf(dayOfWeek), "meal_option", chosenMeal, "meal_category", category.name(), "meal_id", mealId);
+            }
+
+            System.out.printf("Yeah! We planned the meals for %s %n", dayOfWeek);
+            System.out.println();
+        }
+        dataReader.listPlan();
     }
 
-    private void showPlan() {
+    private void clearPlanTable() {
+        String clearQuery = "DELETE FROM plan";
+
+        try (PreparedStatement statement = connection.prepareStatement(clearQuery)) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Could not clear the plan table: {}", e.getMessage());
+        }
+    }
+
+    private void listPlan() {
+        dataReader.listPlan();
     }
 
     private void addMeal() {

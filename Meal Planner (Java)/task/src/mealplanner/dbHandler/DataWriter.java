@@ -56,6 +56,26 @@ public class DataWriter implements DataManager {
     }
 
     @Override
+    public void insertNewRecord(String tableName,
+                                String col2Name, String col2Value,
+                                String col3Name, String col3Value,
+                                String col4Name, String col4Value,
+                                String col5Name, int col5Value) {
+        String insertQuery = "INSERT INTO %s (%s, %s, %s, %s)VALUES (?, ?, ?, ?)".formatted(tableName, col2Name, col3Name, col4Name, col5Name);
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            preparedStatement.setString(1, col2Value);
+            preparedStatement.setString(2, col3Value);
+            preparedStatement.setString(3, col4Value);
+            preparedStatement.setInt(4, col5Value);
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            logger.error("SQL Exception while inserting new record into the database: {}", e.getMessage(), e);
+        }
+    }
+
+    @Override
     public Set<Meal> fetchAllMealsAndIngredients() {
         throw new UnsupportedOperationException("This class does not support reading data");
     }
