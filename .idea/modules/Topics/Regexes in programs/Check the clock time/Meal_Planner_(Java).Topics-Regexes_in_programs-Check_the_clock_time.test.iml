@@ -5,7 +5,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../../../Topics/Regexes in programs/Check the clock time/src/test" />
     <content url="file://$MODULE_DIR$/../../../../../Topics/Regexes in programs/Check the clock time/test" />
-    <orderEntry type="jdk" jdkName="jbr-21" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Meal_Planner_(Java).Topics-Regexes_in_programs-Check_the_clock_time.main" />
     <orderEntry type="module" module-name="Meal_Planner_(Java).util.main" />

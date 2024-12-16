@@ -12,27 +12,12 @@ files:
   - name: src/mealplanner/Meal.java
     visible: true
     learner_created: true
-  - name: src/mealplanner/Menu.java
+  - name: src/mealplanner/
     visible: true
-    learner_created: true
-  - name: src/mealplanner/dbHandler/ConnectionManager.java
-    visible: true
-    learner_created: true
-  - name: src/mealplanner/dbHandler/TableManager.java
-    visible: true
-    learner_created: true
-  - name: src/mealplanner/dbHandler/DataReader.java
-    visible: true
-    learner_created: true
-  - name: src/mealplanner/dbHandler/IDGenerator.java
-    visible: true
-    learner_created: true
-  - name: src/mealplanner/resources/logback.xml
-    visible: true
-    learner_created: true
+    learner_created: false
 feedback_link: https://hyperskill.org/learn/step/25573#comment
 status: Solved
 feedback:
   message: Congratulations!
-  time: "Mon, 09 Dec 2024 14:15:01 UTC"
-record: 3
+  time: "Mon, 16 Dec 2024 08:33:36 UTC"
+record: 5
