@@ -197,9 +197,11 @@ public class Menu {
     }
 
     private void showMeals() {
-        Set<Meal> mealList = dataReader.fetchAllMealsAndIngredients();
+        System.out.println("Which category do you want to print (breakfast, lunch, dinner)?");
+        String input = scanner.nextLine().toLowerCase();
+        Set<Meal> mealList = dataReader.fetchAllMealsAndIngredients(input);
         if (mealList.isEmpty()) {
-            System.out.println("No meals saved. Add a meal first.");
+            System.out.println("No meals found.");
         } else {
             for (Meal meal : mealList) {
                 meal.printMeal();

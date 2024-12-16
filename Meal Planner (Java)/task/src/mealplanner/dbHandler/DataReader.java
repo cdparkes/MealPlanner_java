@@ -143,6 +143,43 @@ public class DataReader implements DataManager {
     }
 
     @Override
+    public Set<Meal> fetchAllMealsAndIngredients(String input) {
+        String mealQuery = "SELECT * FROM meals WHERE category = '" + input + "';";
+        String ingredientQuery = "SELECT * FROM ingredients WHERE meal_id=?";
+
+        Set<Meal> meals = new LinkedHashSet<>();
+
+        try (PreparedStatement mealStatement = connection.prepareStatement(mealQuery);
+             ResultSet mealResultSet = mealStatement.executeQuery()) {
+
+            while (mealResultSet.next()) {
+                int mealId = mealResultSet.getInt("meal_id");
+                String category = mealResultSet.getString("category");
+                String mealName = mealResultSet.getString("meal");
+
+                Meal meal = new Meal(category, mealName);
+
+                try (PreparedStatement ingredientStatement = connection.prepareStatement(ingredientQuery)) {
+                    ingredientStatement.setInt(1, mealId);
+
+                    try (ResultSet ingredientResultSet = ingredientStatement.executeQuery()) {
+                        while (ingredientResultSet.next()) {
+                            String ingredient = ingredientResultSet.getString("ingredient");
+                            meal.addIngredient(ingredient);
+                        }
+                    }
+                }
+
+                meals.add(meal);
+            }
+        } catch (SQLException e) {
+            logger.error("SQL Exception while fetching meals and ingredients: {}", e.getMessage(), e);
+        }
+
+        return meals;
+    }
+
+    @Override
     public int insertNewRecord(String tableName,
                                String col2Name, String col2Value,
                                String col3Name, String col3Value) {

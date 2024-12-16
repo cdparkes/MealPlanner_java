@@ -1,23 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MealPlannerTests" tests="1" skipped="0" failures="1" errors="0" timestamp="2024-12-16T08:32:44" hostname="HAL955" time="0.701">
+<testsuite name="MealPlannerTests" tests="1" skipped="0" failures="1" errors="0" timestamp="2024-12-16T13:43:13" hostname="HAL955" time="2.552">
   <properties/>
-  <testcase name="start" classname="MealPlannerTests" time="0.701">
-    <failure message="java.lang.AssertionError: Wrong answer in test #2&#10;&#10;Your output should contain &quot;Input the ingredients:&quot;&#10;&#10;Please find below the output of your program during this failed test.&#10;Note that the '&gt;' character indicates the beginning of the input line.&#10;&#10;---&#10;&#10;What would you like to do (add, show, exit)?&#10;&gt; add&#10;Which meal do you want to add (breakfast, lunch, dinner)?&#10;&gt; lunch&#10;Input the meal's name:&#10;&gt; sushi&#10;Input the ingredients" type="java.lang.AssertionError">java.lang.AssertionError: Wrong answer in test #2
+  <testcase name="start" classname="MealPlannerTests" time="2.552">
+    <failure message="java.lang.AssertionError: Wrong answer in test #2&#10;&#10;Your program should ask the user about the meal category to print: &quot;(breakfast, lunch, dinner)?&quot;&#10;&#10;Please find below the output of your program during this failed test.&#10;Note that the '&gt;' character indicates the beginning of the input line.&#10;&#10;---&#10;&#10;What would you like to do (add, show, plan, list plan, exit)?&#10;&gt; add&#10;Which meal do you want to add (breakfast, lunch, dinner)?&#10;&gt; lunch&#10;Input the meal's name:&#10;&gt; sushi&#10;Input the ingredients:&#10;&gt; salmon, rice, avocado&#10;The meal has been added!&#10;What would you like to do (add, show, plan, list plan, exit)?&#10;&gt; add&#10;Which meal do you want to add (breakfast, lunch, dinner)?&#10;&gt; lunch&#10;Input the meal's name:&#10;&gt; omelette&#10;Input the ingredients:&#10;&gt; eggs, milk, cheese&#10;The meal has been added!&#10;What would you like to do (add, show, plan, list plan, exit)?&#10;&gt; add&#10;Which meal do you want to add (breakfast, lunch, dinner)?&#10;&gt; breakfast&#10;Input the meal's name:&#10;&gt; oatmeal&#10;Input the ingredients:&#10;&gt; oats, milk, banana, peanut butter&#10;The meal has been added!&#10;What would you like to do (add, show, plan, list plan, exit)?&#10;&gt; show&#10;Which category to you want to print (breakfast, lunch, dinner)?" type="java.lang.AssertionError">java.lang.AssertionError: Wrong answer in test #2
 
-Your output should contain &quot;Input the ingredients:&quot;
+Your program should ask the user about the meal category to print: &quot;(breakfast, lunch, dinner)?&quot;
 
 Please find below the output of your program during this failed test.
 Note that the '&gt;' character indicates the beginning of the input line.
 
 ---
 
-What would you like to do (add, show, exit)?
+What would you like to do (add, show, plan, list plan, exit)?
 &gt; add
 Which meal do you want to add (breakfast, lunch, dinner)?
 &gt; lunch
 Input the meal's name:
 &gt; sushi
-Input the ingredients
+Input the ingredients:
+&gt; salmon, rice, avocado
+The meal has been added!
+What would you like to do (add, show, plan, list plan, exit)?
+&gt; add
+Which meal do you want to add (breakfast, lunch, dinner)?
+&gt; lunch
+Input the meal's name:
+&gt; omelette
+Input the ingredients:
+&gt; eggs, milk, cheese
+The meal has been added!
+What would you like to do (add, show, plan, list plan, exit)?
+&gt; add
+Which meal do you want to add (breakfast, lunch, dinner)?
+&gt; breakfast
+Input the meal's name:
+&gt; oatmeal
+Input the ingredients:
+&gt; oats, milk, banana, peanut butter
+The meal has been added!
+What would you like to do (add, show, plan, list plan, exit)?
+&gt; show
+Which category to you want to print (breakfast, lunch, dinner)?
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.hyperskill.hstest.stage.StageTest.start(StageTest.java:208)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
@@ -63,18 +86,41 @@ Input the ingredients
   </testcase>
   <system-out><![CDATA[?[1;31m
 Start test 1?[0m
-What would you like to do (add, show, exit)?
+What would you like to do (add, show, plan, list plan, exit)?
 > exit
 Bye!
 ?[1;31m
 Start test 2?[0m
-What would you like to do (add, show, exit)?
+What would you like to do (add, show, plan, list plan, exit)?
 > add
 Which meal do you want to add (breakfast, lunch, dinner)?
 > lunch
 Input the meal's name:
 > sushi
-Input the ingredients
+Input the ingredients:
+> salmon, rice, avocado
+The meal has been added!
+What would you like to do (add, show, plan, list plan, exit)?
+> add
+Which meal do you want to add (breakfast, lunch, dinner)?
+> lunch
+Input the meal's name:
+> omelette
+Input the ingredients:
+> eggs, milk, cheese
+The meal has been added!
+What would you like to do (add, show, plan, list plan, exit)?
+> add
+Which meal do you want to add (breakfast, lunch, dinner)?
+> breakfast
+Input the meal's name:
+> oatmeal
+Input the ingredients:
+> oats, milk, banana, peanut butter
+The meal has been added!
+What would you like to do (add, show, plan, list plan, exit)?
+> show
+Which category to you want to print (breakfast, lunch, dinner)?
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

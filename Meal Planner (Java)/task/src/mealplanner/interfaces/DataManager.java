@@ -7,6 +7,8 @@ import java.util.Set;
 public interface DataManager {
     Set<Meal> fetchAllMealsAndIngredients();
 
+    Set<Meal> fetchAllMealsAndIngredients(String input);
+
     int insertNewRecord(String tableName, String col2Name, String col2Value, String col3Name, String col3Value);
 
     void insertNewRecord(String tableName, String col2Name, String col2Value, String col3Name, int col3Value);

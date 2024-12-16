@@ -28,6 +28,12 @@
             <option value="$PROJECT_DIR$/Topics/The Set interface/Strict superset" />
             <option value="$PROJECT_DIR$/Topics/The Set interface/Theory" />
             <option value="$PROJECT_DIR$/Topics/The Set interface/Tree set elements order" />
+            <option value="$PROJECT_DIR$/Topics/toString()/Books as strings" />
+            <option value="$PROJECT_DIR$/Topics/toString()/Class hierarchy" />
+            <option value="$PROJECT_DIR$/Topics/toString()/Convert vehicles and cars to string" />
+            <option value="$PROJECT_DIR$/Topics/toString()/Theory" />
+            <option value="$PROJECT_DIR$/Topics/toString()/Users as strings" />
+            <option value="$PROJECT_DIR$/Topics/toString()/toString method" />
             <option value="$PROJECT_DIR$/util" />
           </set>
         </option>

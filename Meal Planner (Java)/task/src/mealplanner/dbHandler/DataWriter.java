@@ -79,4 +79,9 @@ public class DataWriter implements DataManager {
     public Set<Meal> fetchAllMealsAndIngredients() {
         throw new UnsupportedOperationException("This class does not support reading data");
     }
+
+    @Override
+    public Set<Meal> fetchAllMealsAndIngredients(String input) {
+        throw new UnsupportedOperationException("This class does not support reading data");
+    }
 }
