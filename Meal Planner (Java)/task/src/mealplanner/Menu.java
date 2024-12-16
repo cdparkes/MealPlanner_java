@@ -26,14 +26,26 @@ public class Menu {
     }
 
     public boolean inputMenu() {
-        System.out.println("What would you like to do (add, show, exit)?");
+        System.out.println("What would you like to do (add, show, plan, list plan, exit)?");
         String selection = scanner.nextLine();
         return switch (selection) {
             case "add" -> handleAddition();
             case "show" -> handleShow();
+            case "plan" -> handlePlan();
+            case "show plan" -> handleShowPlan();
             case "exit" -> exitMenu();
             default -> true;
         };
+    }
+
+    private boolean handleShowPlan() {
+        showPlan();
+        return true;
+    }
+
+    private boolean handlePlan() {
+        plan();
+        return true;
     }
 
     private boolean handleAddition() {
@@ -49,6 +61,12 @@ public class Menu {
     private boolean exitMenu() {
         System.out.println(END_MESSAGE);
         return false;
+    }
+
+    private void plan() {
+    }
+
+    private void showPlan() {
     }
 
     private void addMeal() {

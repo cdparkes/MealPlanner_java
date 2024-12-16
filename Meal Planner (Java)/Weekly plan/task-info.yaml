@@ -12,6 +12,9 @@ files:
   - name: src/mealplanner/Meal.java
     visible: true
     learner_created: true
+  - name: src/mealplanner/enums/SqlSchema.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/25575#comment
 status: Unchecked
 record: 4
