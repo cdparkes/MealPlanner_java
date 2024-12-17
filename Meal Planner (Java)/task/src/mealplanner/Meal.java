@@ -33,9 +33,8 @@ public class Meal {
     public void printMeal() {
         System.out.printf("""
                 
-                Category: %s
                 Name: %s
-                Ingredients:%n""", category, name);
+                Ingredients:%n""", name);
         for (String element : ingredients) {
             System.out.println(element);
         }

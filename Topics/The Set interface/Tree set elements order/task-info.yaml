@@ -1,9 +1,5 @@
 type: choice
 is_multiple_choice: false
-options:
-  - text: "[6, 7, 8, 9, 10, 11, 12, 13, 14, 15]"
-  - text: "[]"
-  - text: "[15, 14, 13, 12, 11, 10, 9, 8, 7, 6]"
 files:
   - name: src/Task.java
     visible: true

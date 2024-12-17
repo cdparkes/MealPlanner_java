@@ -9,10 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class DataReader implements DataManager {
 
@@ -96,7 +93,7 @@ public class DataReader implements DataManager {
                     System.out.println("\n" + dayOfWeek);
                 }
 
-                System.out.printf("%s, %s%n", mealCategory.substring(0, 1) + mealCategory.substring(1).toLowerCase(), mealName);
+                System.out.printf("%s, %s%n", mealCategory.charAt(0) + mealCategory.substring(1).toLowerCase(), mealName);
             }
         } catch (SQLException e) {
             logger.error("Error fetching the plan: {}", e.getMessage());
@@ -144,39 +141,77 @@ public class DataReader implements DataManager {
 
     @Override
     public Set<Meal> fetchAllMealsAndIngredients(String input) {
-        String mealQuery = "SELECT * FROM meals WHERE category = '" + input + "';";
+        String mealQuery = "SELECT * FROM meals WHERE LOWER(category) = LOWER(?);";
         String ingredientQuery = "SELECT * FROM ingredients WHERE meal_id=?";
 
         Set<Meal> meals = new LinkedHashSet<>();
 
-        try (PreparedStatement mealStatement = connection.prepareStatement(mealQuery);
-             ResultSet mealResultSet = mealStatement.executeQuery()) {
+        try (PreparedStatement mealStatement = connection.prepareStatement(mealQuery)) {
+            mealStatement.setString(1, input);
+            try (ResultSet mealResultSet = mealStatement.executeQuery()) {
+                while (mealResultSet.next()) {
+                    int mealId = mealResultSet.getInt("meal_id");
+                    String category = mealResultSet.getString("category");
+                    String mealName = mealResultSet.getString("meal");
 
-            while (mealResultSet.next()) {
-                int mealId = mealResultSet.getInt("meal_id");
-                String category = mealResultSet.getString("category");
-                String mealName = mealResultSet.getString("meal");
+                    Meal meal = new Meal(category, mealName);
 
-                Meal meal = new Meal(category, mealName);
-
-                try (PreparedStatement ingredientStatement = connection.prepareStatement(ingredientQuery)) {
-                    ingredientStatement.setInt(1, mealId);
-
-                    try (ResultSet ingredientResultSet = ingredientStatement.executeQuery()) {
-                        while (ingredientResultSet.next()) {
-                            String ingredient = ingredientResultSet.getString("ingredient");
-                            meal.addIngredient(ingredient);
+                    try (PreparedStatement ingredientStatement = connection.prepareStatement(ingredientQuery)) {
+                        ingredientStatement.setInt(1, mealId);
+                        try (ResultSet ingredientResultSet = ingredientStatement.executeQuery()) {
+                            while (ingredientResultSet.next()) {
+                                String ingredient = ingredientResultSet.getString("ingredient");
+                                meal.addIngredient(ingredient);
+                            }
                         }
                     }
-                }
 
-                meals.add(meal);
+                    meals.add(meal);
+                }
             }
         } catch (SQLException e) {
             logger.error("SQL Exception while fetching meals and ingredients: {}", e.getMessage(), e);
         }
-
         return meals;
+    }
+
+    public boolean isPlanAvailable() {
+        String checkQuery = "SELECT COUNT(*) FROM plan";
+        try (PreparedStatement statement = connection.prepareStatement(checkQuery);
+             ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            logger.error("Error checking if the meal plan is available: {}", e.getMessage());
+        }
+        return false;
+    }
+
+    public Map<String, Integer> getShoppingListFromPlan() {
+        String query = """
+                SELECT ingredients.ingredient, COUNT(ingredients.ingredient) AS quantity
+                FROM plan
+                JOIN meals ON plan.meal_id = meals.meal_id
+                JOIN ingredients ON meals.meal_id = ingredients.meal_id
+                GROUP BY ingredients.ingredient
+                ORDER BY ingredients.ingredient;
+                """;
+
+        Map<String, Integer> shoppingList = new LinkedHashMap<>();
+
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                String ingredient = resultSet.getString("ingredient");
+                int quantity = resultSet.getInt("quantity");
+                shoppingList.put(ingredient, quantity);
+            }
+        } catch (SQLException e) {
+            logger.error("Error fetching the shopping list: {}", e.getMessage());
+        }
+
+        return shoppingList;
     }
 
     @Override
@@ -193,13 +228,9 @@ public class DataReader implements DataManager {
         throw new UnsupportedOperationException("This class does not support inserting new records");
     }
 
-//    @Override
-//    public void insertNewRecord(String tableName, String col2Name, String col2Value, String col3Name, String col3Value, String col4Name, int col4Value) {
-//        throw new UnsupportedOperationException("This class does not support inserting new records");
-//    }
-
     @Override
-    public void insertNewRecord(String tableName, String col2Name, String col2Value, String col3Name, String col3Value, String col4Name, String col4Value, String col5Name, int col5Value) {
+    public void insertNewRecord(String tableName, String col2Name, String col2Value, String col3Name, String
+            col3Value, String col4Name, String col4Value, String col5Name, int col5Value) {
         throw new UnsupportedOperationException("This class does not support inserting new records");
     }
 }

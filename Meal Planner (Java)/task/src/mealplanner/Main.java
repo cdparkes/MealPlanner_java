@@ -5,6 +5,7 @@ import mealplanner.dbHandler.TableManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.sql.Connection;
 
 public class Main {
@@ -13,7 +14,7 @@ public class Main {
   public final TableManager tbManager = new TableManager();
   public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     Main app = new Main();
 
     Connection connection = ConnectionManager.getConnection();

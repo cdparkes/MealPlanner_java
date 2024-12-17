@@ -1,11 +1,5 @@
 type: choice
 is_multiple_choice: false
-options:
-  - text: "Employee{name=Khon}"
-  - text: "Person{name=Khon}"
-  - text: "Employee{name='Khon,salary=10000000}"
-  - text: Something like <b>Employee@5f205aa</b>
-  - text: "Person{name='Khon,salary=10000000}"
 files:
   - name: src/Task.java
     visible: true

@@ -3,14 +3,17 @@ package mealplanner;
 import mealplanner.dbHandler.DataReader;
 import mealplanner.dbHandler.DataWriter;
 import mealplanner.enums.Categories;
+import mealplanner.fileHandler.FileWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.util.*;
+import java.util.logging.FileHandler;
 
 public class Menu {
     private static final String REGEX_ALPHABETS = "^[A-Za-z ]+$";
@@ -25,26 +28,33 @@ public class Menu {
     private final Connection connection;
     private final DataReader dataReader;
     private final DataWriter dataWriter;
+    private final FileWriter fileWriter;
 
-    private int dayCounter = 1;
 
-    public Menu(Connection connection) {
+    public Menu(Connection connection) throws IOException {
         this.connection = connection;
         this.dataReader = new DataReader(connection);
         this.dataWriter = new DataWriter(connection);
+        this.fileWriter = new FileWriter();
     }
 
     public boolean inputMenu() {
-        System.out.println("What would you like to do (add, show, plan, list plan, exit)?");
+        System.out.println("What would you like to do (add, show, plan, list plan, save, exit)?");
         String selection = scanner.nextLine();
         return switch (selection) {
             case "add" -> handleAddition();
             case "show" -> handleShow();
             case "plan" -> handlePlan();
             case "list plan" -> handleListPlan();
+            case "save" -> handleSave();
             case "exit" -> exitMenu();
             default -> true;
         };
+    }
+
+    private boolean handleSave() {
+        savePlanIngredients();
+        return true;
     }
 
     private boolean handleListPlan() {
@@ -53,7 +63,7 @@ public class Menu {
     }
 
     private boolean handlePlan() {
-        plan();
+        makeWeekPlan();
         return true;
     }
 
@@ -72,7 +82,29 @@ public class Menu {
         return false;
     }
 
-    private void plan() {
+    private void savePlanIngredients() {
+        if (!dataReader.isPlanAvailable()) {
+            System.out.println("Unable to save. Plan your meals first.");
+            return;
+        }
+
+        Map<String, Integer> shoppingList = dataReader.getShoppingListFromPlan();
+
+        if (shoppingList.isEmpty()) {
+            System.out.println("No ingredients found for the current meal plan.");
+            return;
+        }
+
+        System.out.println("Input a filename:");
+        String fileName = scanner.nextLine();
+
+        fileWriter.saveToFile(fileName, shoppingList);
+        System.out.println("Saved!");
+    }
+
+
+
+    private void makeWeekPlan() {
         clearPlanTable();
         for (int day = 1; day <= 7; day++) {
             DayOfWeek dayOfWeek = DayOfWeek.of(day);
@@ -199,14 +231,19 @@ public class Menu {
     private void showMeals() {
         System.out.println("Which category do you want to print (breakfast, lunch, dinner)?");
         String input = scanner.nextLine().toLowerCase();
-        Set<Meal> mealList = dataReader.fetchAllMealsAndIngredients(input);
-        if (mealList.isEmpty()) {
-            System.out.println("No meals found.");
-        } else {
-            for (Meal meal : mealList) {
-                meal.printMeal();
+        if (List.of("breakfast", "lunch", "dinner").contains(input)) {
+            Set<Meal> mealList = dataReader.fetchAllMealsAndIngredients(input);
+            if (mealList.isEmpty()) {
+                System.out.println("No meals found.");
+            } else {
+                System.out.println("\nCategory: " + input);
+                for (Meal meal : mealList) {
+                    meal.printMeal();
+                }
                 System.out.println();
             }
+        } else {
+            System.out.println("Wrong meal category! Choose from: breakfast, lunch, dinner.");
         }
     }
 }

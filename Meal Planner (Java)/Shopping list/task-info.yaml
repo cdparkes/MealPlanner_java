@@ -18,6 +18,62 @@ files:
   - name: src/mealplanner/enums/Categories.java
     visible: true
     learner_created: true
+  - name: src/mealplanner/fileHandler/FileWriter.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/25576#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #4
+
+    Wrong output for a category with no added meals.
+
+    Please find below the output of your program during this failed test.
+    Note that the &#39;&gt;&#39; character indicates the beginning of the input line.
+
+    ---
+
+    What would you like to do (add, show, plan, list plan, save, exit)?
+    &gt; show
+    Which category do you want to print (breakfast, lunch, dinner)?
+    &gt; lunch
+
+    Category: lunch
+
+    Name: sushi
+    Ingredients:
+    salmon
+    rice
+    avocado
+
+    Name: omelette
+    Ingredients:
+    eggs
+    milk
+    cheese
+
+    What would you like to do (add, show, plan, list plan, save, exit)?
+    &gt; show
+    Which category do you want to print (breakfast, lunch, dinner)?
+    &gt; breakfast
+
+    Category: breakfast
+
+    Name: oatmeal
+    Ingredients:
+    oats
+    milk
+    banana
+    peanut butter
+
+    What would you like to do (add, show, plan, list plan, save, exit)?
+    &gt; show
+    Which category do you want to print (breakfast, lunch, dinner)?
+    &gt; brunch
+    Wrong meal category! Choose from: breakfast, lunch, dinner.
+    What would you like to do (add, show, plan, list plan, save, exit)?
+    &gt; dinner
+    What would you like to do (add, show, plan, list plan, save, exit)?
+  time: "Tue, 17 Dec 2024 09:17:31 UTC"
 record: -1

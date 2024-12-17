@@ -1,11 +1,19 @@
 [1;31m
 Start test 1[0m
-?What would you like to do (add, show, plan, list plan, exit)?
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
+> save
+(Unable to save. Plan your meals first.
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
 > exit
 Bye!
 [1;31m
 Start test 2[0m
-?What would you like to do (add, show, plan, list plan, exit)?
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
+> exit
+Bye!
+[1;31m
+Start test 3[0m
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
 > add
 ;Which meal do you want to add (breakfast, lunch, dinner)?
 > lunch
@@ -14,7 +22,7 @@
 Input the ingredients:
 > salmon, rice, avocado
 The meal has been added!
-?What would you like to do (add, show, plan, list plan, exit)?
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
 > add
 ;Which meal do you want to add (breakfast, lunch, dinner)?
 > lunch
@@ -23,7 +31,7 @@
 Input the ingredients:
 > eggs, milk, cheese
 The meal has been added!
-?What would you like to do (add, show, plan, list plan, exit)?
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
 > add
 ;Which meal do you want to add (breakfast, lunch, dinner)?
 > breakfast
@@ -33,6 +41,82 @@
 Input the ingredients:
 $> oats, milk, banana, peanut butter
 The meal has been added!
-?What would you like to do (add, show, plan, list plan, exit)?
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
 > show
-AWhich category to you want to print (breakfast, lunch, dinner)?
+AWhich category do you want to print (breakfast, lunch, dinner)?
+> lunch
+
+Category: lunch
+
+Name: sushi
+Ingredients:
+salmon
+rice
+	avocado
+
+Name: omelette
+Ingredients:
+eggs
+milk
+cheese
+
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
+> show
+AWhich category do you want to print (breakfast, lunch, dinner)?
+> breakfast
+
+Category: breakfast
+
+Name: oatmeal
+Ingredients:
+oats
+milk
+banana
+peanut butter
+
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
+> exit
+Bye!
+[1;31m
+Start test 4[0m
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
+> show
+AWhich category do you want to print (breakfast, lunch, dinner)?
+> lunch
+
+Category: lunch
+
+Name: sushi
+Ingredients:
+salmon
+rice
+	avocado
+
+Name: omelette
+Ingredients:
+eggs
+milk
+cheese
+
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
+> show
+AWhich category do you want to print (breakfast, lunch, dinner)?
+> breakfast
+
+Category: breakfast
+
+Name: oatmeal
+Ingredients:
+oats
+milk
+banana
+peanut butter
+
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
+> show
+AWhich category do you want to print (breakfast, lunch, dinner)?
+	> brunch
+=Wrong meal category! Choose from: breakfast, lunch, dinner.
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
+	> dinner
+EWhat would you like to do (add, show, plan, list plan, save, exit)?
