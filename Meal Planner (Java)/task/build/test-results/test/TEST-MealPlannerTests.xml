@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MealPlannerTests" tests="1" skipped="0" failures="1" errors="0" timestamp="2024-12-17T09:17:30" hostname="HAL955" time="1.61">
+<testsuite name="MealPlannerTests" tests="1" skipped="0" failures="1" errors="0" timestamp="2024-12-17T09:31:19" hostname="HAL955" time="1.821">
   <properties/>
-  <testcase name="start" classname="MealPlannerTests" time="1.61">
+  <testcase name="start" classname="MealPlannerTests" time="1.821">
     <failure message="java.lang.AssertionError: Wrong answer in test #4&#10;&#10;Wrong output for a category with no added meals.&#10;&#10;Please find below the output of your program during this failed test.&#10;Note that the '&gt;' character indicates the beginning of the input line.&#10;&#10;---&#10;&#10;What would you like to do (add, show, plan, list plan, save, exit)?&#10;&gt; show&#10;Which category do you want to print (breakfast, lunch, dinner)?&#10;&gt; lunch&#10;&#10;Category: lunch&#10;&#10;Name: sushi&#10;Ingredients:&#10;salmon&#10;rice&#10;avocado&#10;&#10;Name: omelette&#10;Ingredients:&#10;eggs&#10;milk&#10;cheese&#10;&#10;What would you like to do (add, show, plan, list plan, save, exit)?&#10;&gt; show&#10;Which category do you want to print (breakfast, lunch, dinner)?&#10;&gt; breakfast&#10;&#10;Category: breakfast&#10;&#10;Name: oatmeal&#10;Ingredients:&#10;oats&#10;milk&#10;banana&#10;peanut butter&#10;&#10;What would you like to do (add, show, plan, list plan, save, exit)?&#10;&gt; show&#10;Which category do you want to print (breakfast, lunch, dinner)?&#10;&gt; brunch&#10;Wrong meal category! Choose from: breakfast, lunch, dinner.&#10;What would you like to do (add, show, plan, list plan, save, exit)?&#10;&gt; dinner&#10;What would you like to do (add, show, plan, list plan, save, exit)?" type="java.lang.AssertionError">java.lang.AssertionError: Wrong answer in test #4
 
 Wrong output for a category with no added meals.
