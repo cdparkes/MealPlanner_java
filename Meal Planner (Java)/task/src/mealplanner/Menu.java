@@ -7,13 +7,11 @@ import mealplanner.fileHandler.FileWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.util.*;
-import java.util.logging.FileHandler;
 
 public class Menu {
     private static final String REGEX_ALPHABETS = "^[A-Za-z ]+$";
@@ -31,7 +29,7 @@ public class Menu {
     private final FileWriter fileWriter;
 
 
-    public Menu(Connection connection) throws IOException {
+    public Menu(Connection connection) {
         this.connection = connection;
         this.dataReader = new DataReader(connection);
         this.dataWriter = new DataWriter(connection);
@@ -120,7 +118,7 @@ public class Menu {
                 meals.sort(String::compareToIgnoreCase);
                 meals.forEach(System.out::println);
 
-                String chosenMeal = null;
+                String chosenMeal;
                 while (true) {
                     System.out.printf("Choose the %s for %s from the list above:%n", category.name().toLowerCase(), dayOfWeek);
                     String input = scanner.nextLine();
